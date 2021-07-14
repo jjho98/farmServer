@@ -4,11 +4,7 @@
     "password": "1234",
     "database": "farmon",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "define": {
-      "charset": "utf8mb4",
-      "collate": "utf8mb4_unicoe_ci"
-    }
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",

@@ -1,12 +1,16 @@
-require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
 
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const { sequelize } = require('./models');
+const session = require('express-session')
 
+
+
+const { sequelize } = require('./models');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -23,8 +27,19 @@ sequelize.sync({ force: false })
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
+
+const sessionOption = {
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+}
+app.use(session(sessionOption))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

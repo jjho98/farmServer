@@ -1,21 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('deliveryAddress', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    Place_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Place',
-        key: 'id'
-      }
-    },
+  return sequelize.define('like', {
     Customer_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -29,10 +14,24 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
+    },
+    Product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'Product',
+        key: 'id'
+      }
+    },
+    Product_Seller_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     }
   }, {
     sequelize,
-    tableName: 'DeliveryAddress',
+    tableName: 'Like',
     timestamps: true,
     underscored: 'false',
     charset: 'utf8mb4',
@@ -43,24 +42,17 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
-          { name: "Place_id" },
           { name: "Customer_id" },
           { name: "Customer_Place_id" },
+          { name: "Product_id" },
+          { name: "Product_Seller_id" },
         ]
       },
       {
-        name: "fk_Address_Place1",
+        name: "fk_Customer_has_Product_Product1",
         using: "BTREE",
         fields: [
-          { name: "Place_id" },
-        ]
-      },
-      {
-        name: "fk_DeliveryAddress_Customer1",
-        using: "BTREE",
-        fields: [
-          { name: "Customer_id" },
+          { name: "Product_id" },
         ]
       },
     ]

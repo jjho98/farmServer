@@ -1,38 +1,46 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('deliveryAddress', {
+  return sequelize.define('question', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    Place_id: {
+    content: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    Review_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: 'Place',
+        model: 'Review',
         key: 'id'
       }
     },
-    Customer_id: {
+    Review_Product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: 'Customer',
-        key: 'id'
+        model: 'Review',
+        key: 'Product_id'
       }
     },
-    Customer_Place_id: {
+    Review_Product_Seller_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'Review',
+        key: 'Product_Seller_id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'DeliveryAddress',
+    tableName: 'Question',
     timestamps: true,
     underscored: 'false',
     charset: 'utf8mb4',
@@ -44,23 +52,18 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "Place_id" },
-          { name: "Customer_id" },
-          { name: "Customer_Place_id" },
+          { name: "Review_id" },
+          { name: "Review_Product_id" },
+          { name: "Review_Product_Seller_id" },
         ]
       },
       {
-        name: "fk_Address_Place1",
+        name: "fk_Question_Review1",
         using: "BTREE",
         fields: [
-          { name: "Place_id" },
-        ]
-      },
-      {
-        name: "fk_DeliveryAddress_Customer1",
-        using: "BTREE",
-        fields: [
-          { name: "Customer_id" },
+          { name: "Review_id" },
+          { name: "Review_Product_id" },
+          { name: "Review_Product_Seller_id" },
         ]
       },
     ]

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('deliveryAddress', {
+  return sequelize.define('productionAddress', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -15,24 +15,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Place',
         key: 'id'
       }
-    },
-    Customer_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Customer',
-        key: 'id'
-      }
-    },
-    Customer_Place_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
     }
   }, {
     sequelize,
-    tableName: 'DeliveryAddress',
+    tableName: 'ProductionAddress',
     timestamps: true,
     underscored: 'false',
     charset: 'utf8mb4',
@@ -45,22 +31,13 @@ module.exports = function(sequelize, DataTypes) {
         fields: [
           { name: "id" },
           { name: "Place_id" },
-          { name: "Customer_id" },
-          { name: "Customer_Place_id" },
         ]
       },
       {
-        name: "fk_Address_Place1",
+        name: "fk_ProductionPlace_Place1",
         using: "BTREE",
         fields: [
           { name: "Place_id" },
-        ]
-      },
-      {
-        name: "fk_DeliveryAddress_Customer1",
-        using: "BTREE",
-        fields: [
-          { name: "Customer_id" },
         ]
       },
     ]

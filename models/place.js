@@ -1,43 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('customer', {
+  return sequelize.define('place', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    email: {
-      type: DataTypes.STRING(45),
+    jibunAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    roadAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    detailAddr: {
+      type: DataTypes.STRING(100),
       allowNull: true
     },
-    password: {
-      type: DataTypes.STRING(45),
-      allowNull: true
-    },
-    phone: {
-      type: DataTypes.STRING(13),
-      allowNull: true
-    },
-    nickname: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    provider: {
-      type: DataTypes.STRING(10),
-      allowNull: true
-    },
-    snsId: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    profile: {
-      type: DataTypes.STRING(80),
-      allowNull: true
+    geometry: {
+      type: DataTypes.GEOMETRY,
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'Customer',
+    tableName: 'Place',
     timestamps: true,
     underscored: 'false',
     charset: 'utf8mb4',
@@ -45,6 +33,14 @@ module.exports = function(sequelize, DataTypes) {
     indexes: [
       {
         name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "id" },
+        ]
+      },
+      {
+        name: "id_UNIQUE",
         unique: true,
         using: "BTREE",
         fields: [
