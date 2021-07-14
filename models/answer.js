@@ -20,31 +20,31 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    Question_Review_id: {
+    Question_Product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
         model: 'Question',
-        key: 'Review_id'
+        key: 'Product_id'
       }
     },
-    Question_Review_Product_id: {
+    Question_Product_ProductionAddress_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
         model: 'Question',
-        key: 'Review_Product_id'
+        key: 'Product_ProductionAddress_id'
       }
     },
-    Question_Review_Product_Seller_id: {
+    Question_Product_Seller_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
         model: 'Question',
-        key: 'Review_Product_Seller_id'
+        key: 'Product_Seller_id'
       }
     }
   }, {
@@ -62,9 +62,9 @@ module.exports = function(sequelize, DataTypes) {
         fields: [
           { name: "id" },
           { name: "Question_id" },
-          { name: "Question_Review_id" },
-          { name: "Question_Review_Product_id" },
-          { name: "Question_Review_Product_Seller_id" },
+          { name: "Question_Product_id" },
+          { name: "Question_Product_ProductionAddress_id" },
+          { name: "Question_Product_Seller_id" },
         ]
       },
       {
@@ -72,9 +72,9 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "Question_id" },
-          { name: "Question_Review_id" },
-          { name: "Question_Review_Product_id" },
-          { name: "Question_Review_Product_Seller_id" },
+          { name: "Question_Product_id" },
+          { name: "Question_Product_ProductionAddress_id" },
+          { name: "Question_Product_Seller_id" },
         ]
       },
     ]
