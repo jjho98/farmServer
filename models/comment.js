@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('comment', {
+  return sequelize.define('Comment', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -42,9 +42,6 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'Comment',
     timestamps: true,
-    underscored: 'false',
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
     indexes: [
       {
         name: "PRIMARY",

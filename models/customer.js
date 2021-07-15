@@ -1,48 +1,25 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('customer', {
+  return sequelize.define('Customer', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    email: {
-      type: DataTypes.STRING(45),
-      allowNull: true
-    },
-    password: {
-      type: DataTypes.STRING(45),
-      allowNull: true
-    },
-    phone: {
-      type: DataTypes.STRING(13),
-      allowNull: true
-    },
-    nickname: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    provider: {
-      type: DataTypes.STRING(10),
-      allowNull: true
-    },
-    snsId: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    profile: {
-      type: DataTypes.STRING(80),
-      allowNull: true
+    User_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
     tableName: 'Customer',
-    timestamps: true,
-    paranoid: true,
-    underscored: 'false',
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
@@ -50,6 +27,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+          { name: "User_id" },
+        ]
+      },
+      {
+        name: "fk_Customer_User1",
+        using: "BTREE",
+        fields: [
+          { name: "User_id" },
         ]
       },
     ]

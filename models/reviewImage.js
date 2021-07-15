@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('reviewImage', {
+  return sequelize.define('ReviewImage', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -25,9 +25,6 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'ReviewImage',
     timestamps: false,
-    underscored: 'false',
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
     indexes: [
       {
         name: "PRIMARY",

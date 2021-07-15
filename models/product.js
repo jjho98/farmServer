@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('product', {
+  return sequelize.define('Product', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -49,15 +49,22 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Seller',
         key: 'id'
       }
+    },
+    canDirect: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 0
+    },
+    selling: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
     tableName: 'Product',
     timestamps: true,
     paranoid: true,
-    underscored: 'false',
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
     indexes: [
       {
         name: "PRIMARY",

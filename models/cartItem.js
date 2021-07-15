@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('cartItem', {
+  return sequelize.define('CartItem', {
     Customer_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -36,9 +36,6 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'CartItem',
     timestamps: false,
-    underscored: 'false',
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
     indexes: [
       {
         name: "PRIMARY",
