@@ -1,13 +1,12 @@
 var DataTypes = require("sequelize").DataTypes;
 var _answer = require("./answer");
-var _cart = require("./cart");
+var _cartItem = require("./cartItem");
 var _comment = require("./comment");
 var _customer = require("./customer");
 var _deliveryAddress = require("./deliveryAddress");
 var _like = require("./like");
 var _option = require("./option");
 var _optionOrder = require("./optionOrder");
-var _place = require("./place");
 var _product = require("./product");
 var _productDescription = require("./productDescription");
 var _productImage = require("./productImage");
@@ -20,14 +19,13 @@ var _totalOrder = require("./totalOrder");
 
 function initModels(sequelize) {
   var answer = _answer(sequelize, DataTypes);
-  var cart = _cart(sequelize, DataTypes);
+  var cartItem = _cartItem(sequelize, DataTypes);
   var comment = _comment(sequelize, DataTypes);
   var customer = _customer(sequelize, DataTypes);
   var deliveryAddress = _deliveryAddress(sequelize, DataTypes);
   var like = _like(sequelize, DataTypes);
   var option = _option(sequelize, DataTypes);
   var optionOrder = _optionOrder(sequelize, DataTypes);
-  var place = _place(sequelize, DataTypes);
   var product = _product(sequelize, DataTypes);
   var productDescription = _productDescription(sequelize, DataTypes);
   var productImage = _productImage(sequelize, DataTypes);
@@ -38,54 +36,32 @@ function initModels(sequelize) {
   var seller = _seller(sequelize, DataTypes);
   var totalOrder = _totalOrder(sequelize, DataTypes);
 
-  customer.belongsToMany(place, { as: 'Place_id_Places', through: deliveryAddress, foreignKey: "Customer_id", otherKey: "Place_id" });
+  customer.belongsToMany(deliveryAddress, { as: 'DeliveryAddress_id_DeliveryAddresses', through: totalOrder, foreignKey: "Customer_id", otherKey: "DeliveryAddress_id" });
   customer.belongsToMany(product, { as: 'Product_id_Products', through: like, foreignKey: "Customer_id", otherKey: "Product_id" });
-  option.belongsToMany(option, { as: 'Option_Product_id_Options', through: optionOrder, foreignKey: "Option_id", otherKey: "Option_Product_id" });
-  option.belongsToMany(option, { as: 'Option_id_Options', through: optionOrder, foreignKey: "Option_Product_id", otherKey: "Option_id" });
-  place.belongsToMany(customer, { as: 'Customer_id_Customers', through: deliveryAddress, foreignKey: "Place_id", otherKey: "Customer_id" });
-  product.belongsToMany(customer, { as: 'Customer_id_Customer_Likes', through: like, foreignKey: "Product_id", otherKey: "Customer_id" });
+  deliveryAddress.belongsToMany(customer, { as: 'Customer_id_Customer_TotalOrders', through: totalOrder, foreignKey: "DeliveryAddress_id", otherKey: "Customer_id" });
+  product.belongsToMany(customer, { as: 'Customer_id_Customers', through: like, foreignKey: "Product_id", otherKey: "Customer_id" });
   productionAddress.belongsToMany(seller, { as: 'Seller_id_Sellers', through: product, foreignKey: "ProductionAddress_id", otherKey: "Seller_id" });
   seller.belongsToMany(productionAddress, { as: 'ProductionAddress_id_ProductionAddresses', through: product, foreignKey: "Seller_id", otherKey: "ProductionAddress_id" });
-  cart.belongsTo(customer, { as: "Customer", foreignKey: "Customer_id"});
-  customer.hasMany(cart, { as: "Carts", foreignKey: "Customer_id"});
+  cartItem.belongsTo(customer, { as: "Customer", foreignKey: "Customer_id"});
+  customer.hasMany(cartItem, { as: "CartItems", foreignKey: "Customer_id"});
   deliveryAddress.belongsTo(customer, { as: "Customer", foreignKey: "Customer_id"});
   customer.hasMany(deliveryAddress, { as: "DeliveryAddresses", foreignKey: "Customer_id"});
   like.belongsTo(customer, { as: "Customer", foreignKey: "Customer_id"});
   customer.hasMany(like, { as: "Likes", foreignKey: "Customer_id"});
+  optionOrder.belongsTo(customer, { as: "Customer", foreignKey: "Customer_id"});
+  customer.hasMany(optionOrder, { as: "OptionOrders", foreignKey: "Customer_id"});
   totalOrder.belongsTo(customer, { as: "Customer", foreignKey: "Customer_id"});
   customer.hasMany(totalOrder, { as: "TotalOrders", foreignKey: "Customer_id"});
   totalOrder.belongsTo(deliveryAddress, { as: "DeliveryAddress", foreignKey: "DeliveryAddress_id"});
   deliveryAddress.hasMany(totalOrder, { as: "TotalOrders", foreignKey: "DeliveryAddress_id"});
-  totalOrder.belongsTo(deliveryAddress, { as: "DeliveryAddress_Place", foreignKey: "DeliveryAddress_Place_id"});
-  deliveryAddress.hasMany(totalOrder, { as: "DeliveryAddress_Place_TotalOrders", foreignKey: "DeliveryAddress_Place_id"});
-  totalOrder.belongsTo(deliveryAddress, { as: "DeliveryAddress_Customer", foreignKey: "DeliveryAddress_Customer_id"});
-  deliveryAddress.hasMany(totalOrder, { as: "DeliveryAddress_Customer_TotalOrders", foreignKey: "DeliveryAddress_Customer_id"});
-  totalOrder.belongsTo(deliveryAddress, { as: "DeliveryAddress_Customer_Place", foreignKey: "DeliveryAddress_Customer_Place_id"});
-  deliveryAddress.hasMany(totalOrder, { as: "DeliveryAddress_Customer_Place_TotalOrders", foreignKey: "DeliveryAddress_Customer_Place_id"});
+  cartItem.belongsTo(option, { as: "Option", foreignKey: "Option_id"});
+  option.hasMany(cartItem, { as: "CartItems", foreignKey: "Option_id"});
+  cartItem.belongsTo(option, { as: "Option_Product", foreignKey: "Option_Product_id"});
+  option.hasMany(cartItem, { as: "Option_Product_CartItems", foreignKey: "Option_Product_id"});
   optionOrder.belongsTo(option, { as: "Option", foreignKey: "Option_id"});
   option.hasMany(optionOrder, { as: "OptionOrders", foreignKey: "Option_id"});
   optionOrder.belongsTo(option, { as: "Option_Product", foreignKey: "Option_Product_id"});
   option.hasMany(optionOrder, { as: "Option_Product_OptionOrders", foreignKey: "Option_Product_id"});
-  cart.belongsTo(optionOrder, { as: "OptionOrder", foreignKey: "OptionOrder_id"});
-  optionOrder.hasMany(cart, { as: "Carts", foreignKey: "OptionOrder_id"});
-  cart.belongsTo(optionOrder, { as: "OptionOrder_Option", foreignKey: "OptionOrder_Option_id"});
-  optionOrder.hasMany(cart, { as: "OptionOrder_Option_Carts", foreignKey: "OptionOrder_Option_id"});
-  cart.belongsTo(optionOrder, { as: "OptionOrder_Option_Product", foreignKey: "OptionOrder_Option_Product_id"});
-  optionOrder.hasMany(cart, { as: "OptionOrder_Option_Product_Carts", foreignKey: "OptionOrder_Option_Product_id"});
-  cart.belongsTo(optionOrder, { as: "OptionOrder_Option_Product_Seller", foreignKey: "OptionOrder_Option_Product_Seller_id"});
-  optionOrder.hasMany(cart, { as: "OptionOrder_Option_Product_Seller_Carts", foreignKey: "OptionOrder_Option_Product_Seller_id"});
-  totalOrder.belongsTo(optionOrder, { as: "OptionOrder", foreignKey: "OptionOrder_id"});
-  optionOrder.hasMany(totalOrder, { as: "TotalOrders", foreignKey: "OptionOrder_id"});
-  totalOrder.belongsTo(optionOrder, { as: "OptionOrder_Option", foreignKey: "OptionOrder_Option_id"});
-  optionOrder.hasMany(totalOrder, { as: "OptionOrder_Option_TotalOrders", foreignKey: "OptionOrder_Option_id"});
-  totalOrder.belongsTo(optionOrder, { as: "OptionOrder_Option_Product", foreignKey: "OptionOrder_Option_Product_id"});
-  optionOrder.hasMany(totalOrder, { as: "OptionOrder_Option_Product_TotalOrders", foreignKey: "OptionOrder_Option_Product_id"});
-  totalOrder.belongsTo(optionOrder, { as: "OptionOrder_Option_Product_Seller", foreignKey: "OptionOrder_Option_Product_Seller_id"});
-  optionOrder.hasMany(totalOrder, { as: "OptionOrder_Option_Product_Seller_TotalOrders", foreignKey: "OptionOrder_Option_Product_Seller_id"});
-  deliveryAddress.belongsTo(place, { as: "Place", foreignKey: "Place_id"});
-  place.hasMany(deliveryAddress, { as: "DeliveryAddresses", foreignKey: "Place_id"});
-  productionAddress.belongsTo(place, { as: "Place", foreignKey: "Place_id"});
-  place.hasMany(productionAddress, { as: "ProductionAddresses", foreignKey: "Place_id"});
   like.belongsTo(product, { as: "Product", foreignKey: "Product_id"});
   product.hasMany(like, { as: "Likes", foreignKey: "Product_id"});
   option.belongsTo(product, { as: "Product", foreignKey: "Product_id"});
@@ -122,17 +98,20 @@ function initModels(sequelize) {
   review.hasMany(reviewImage, { as: "ReviewImages", foreignKey: "Review_id"});
   product.belongsTo(seller, { as: "Seller", foreignKey: "Seller_id"});
   seller.hasMany(product, { as: "Products", foreignKey: "Seller_id"});
+  optionOrder.belongsTo(totalOrder, { as: "TotalOrder", foreignKey: "TotalOrder_id"});
+  totalOrder.hasMany(optionOrder, { as: "OptionOrders", foreignKey: "TotalOrder_id"});
+  optionOrder.belongsTo(totalOrder, { as: "TotalOrder_Customer", foreignKey: "TotalOrder_Customer_id"});
+  totalOrder.hasMany(optionOrder, { as: "TotalOrder_Customer_OptionOrders", foreignKey: "TotalOrder_Customer_id"});
 
   return {
     answer,
-    cart,
+    cartItem,
     comment,
     customer,
     deliveryAddress,
     like,
     option,
     optionOrder,
-    place,
     product,
     productDescription,
     productImage,

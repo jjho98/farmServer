@@ -7,15 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    Place_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Place',
-        key: 'id'
-      }
-    },
     Customer_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -25,10 +16,21 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    Customer_Place_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+    jibunAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    roadAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    detailAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    geometry: {
+      type: DataTypes.GEOMETRY,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -44,16 +46,7 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "Place_id" },
           { name: "Customer_id" },
-          { name: "Customer_Place_id" },
-        ]
-      },
-      {
-        name: "fk_Address_Place1",
-        using: "BTREE",
-        fields: [
-          { name: "Place_id" },
         ]
       },
       {

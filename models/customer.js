@@ -39,6 +39,7 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'Customer',
     timestamps: true,
+    paranoid: true,
     underscored: 'false',
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',

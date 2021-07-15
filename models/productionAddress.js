@@ -7,14 +7,21 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    Place_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Place',
-        key: 'id'
-      }
+    jibunAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    roadAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    detailAddr: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    geometry: {
+      type: DataTypes.GEOMETRY,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -30,14 +37,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "Place_id" },
-        ]
-      },
-      {
-        name: "fk_ProductionPlace_Place1",
-        using: "BTREE",
-        fields: [
-          { name: "Place_id" },
         ]
       },
     ]

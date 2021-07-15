@@ -10,11 +10,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    Customer_Place_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
     Product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -43,7 +38,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "Customer_id" },
-          { name: "Customer_Place_id" },
           { name: "Product_id" },
           { name: "Product_Seller_id" },
         ]
