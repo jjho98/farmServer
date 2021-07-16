@@ -1,4 +1,4 @@
-const Product = require('../models/product')
+const { Product } = require('../models')
 
 exports.findSomeDeliveryByCategory = async (category, offset) => {
   const deliveryList = await Product.findAndCountAll({

@@ -1,3 +1,7 @@
+const fs = require('fs')
+const path = require('path');
+const basename = path.basename(__filename);
+
 const crud = {}
 
 fs
@@ -7,7 +11,7 @@ fs
   })
   .forEach(file => {
     const model = require(path.join(__dirname, file))
-    crud[file] = model;
+    crud[path.basename(file, '.js')] = model;
   });
 
 module.exports = crud;

@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 0
     },
-    selling: {
+    isSelling: {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: 1
