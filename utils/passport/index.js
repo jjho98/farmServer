@@ -1,7 +1,7 @@
 const passport = require('passport')
 const local = require('./local')
 const kakao = require('./kakao')
-const User = require('../models/user')
+const {User} = require('../../models')
 
 
 module.exports = () => {

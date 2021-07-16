@@ -7,13 +7,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    display_price: {
+    displayPrice: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    average_rate: {
+    averageRate: {
       type: DataTypes.DECIMAL(2,1),
-      allowNull: true
+      allowNull: false,
+      defaultValue: 0.0
     },
     name: {
       type: DataTypes.STRING(45),
