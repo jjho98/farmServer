@@ -1,17 +1,18 @@
 const Product = require('../models/product')
 
-exports.findAllByCategory = async (category) => {
+exports.findSomeDeliveryByCategory = async (category, offset) => {
   const deliveryList = await Product.findAndCountAll({
     where: {
       category,
       isSelling: 1,
     },
     limit: 10,
+    offset
   })
   return deliveryList
 }
 
-exports.findAllDirectByCategory = async (category) => {
+exports.findSomeDirectByCategory = async (category, offset) => {
   const directList = await Product.findAndCountAll({
     where: {
       canDirect: 1,
@@ -19,12 +20,17 @@ exports.findAllDirectByCategory = async (category) => {
       category
     },
     limit: 10,
+    offset
   })
   return directList
 }
 
 exports.findItemByPk = async(id) => {
-  const item = await Product.findByPk(id)
+  const item = await Product.findByPk(id, {
+    include: [
+      
+    ]
+  })
   return item
 }
 

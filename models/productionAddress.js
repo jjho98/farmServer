@@ -18,10 +18,6 @@ module.exports = function(sequelize, DataTypes) {
     detailAddr: {
       type: DataTypes.STRING(100),
       allowNull: true
-    },
-    geometry: {
-      type: DataTypes.GEOMETRY,
-      allowNull: false
     }
   }, {
     sequelize,

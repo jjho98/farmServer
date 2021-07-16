@@ -2,14 +2,23 @@ const express = require('express')
 const router = express.Router()
 const { product } = require('../crud')
 
-router.get('/:category', async (req, res) => {
-  const categoryList = await product.findAllByCateogry(req.params.category)
-  res.status(200).json(categoryList)
+// /:category?offset=x
+router.get('/:category', async (req, res, next) => {
+  try {
+    const categoryList = await product.findSomeDeliveryByCateogry(req.params.category, req.query.offset)
+    res.status(200).json(categoryList)
+  } catch(err) {
+    next(err)
+  }
 })
 
-router.get('/:category/:id', async (req, res) => {
-  const selectedItem = await product.findItemByPk(req.params.id)
-  res.status(200).json(selectedItem)
+router.get('/:category/:id', async (req, res, next) => {
+  try {
+    const selectedItem = await product.findItemByPk(req.params.id)
+    res.status(200).json(selectedItem)
+  } catch(err) {
+    next(err)
+  }
 })
 
 module.exports = router

@@ -25,8 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     thumbnail: {
       type: DataTypes.STRING(80),
-      allowNull: false,
-      defaultValue: "대표 이미지"
+      allowNull: false
     },
     category: {
       type: DataTypes.STRING(45),

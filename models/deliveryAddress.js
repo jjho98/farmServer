@@ -26,10 +26,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     detailAddr: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false
     },
-    geometry: {
-      type: DataTypes.GEOMETRY,
+    receiver: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    phone: {
+      type: DataTypes.STRING(13),
       allowNull: false
     }
   }, {
