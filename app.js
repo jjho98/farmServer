@@ -6,7 +6,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const session = require('express-session')
+// const session = require('express-session')
 const passport = require('passport')
 const cors = require('cors')
 
@@ -36,18 +36,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use('/img', express.static(path.join(__dirname, 'public/images')));
 
-const sessionOption = {
-  resave: false,
-  saveUninitialized: false,
-  secret: process.env.COOKIE_SECRET,
-  cookie: {
-    httpOnly: true,
-    secure: false,
-  },
-}
-app.use(session(sessionOption))
+// const sessionOption = {
+//   resave: false,
+//   saveUninitialized: false,
+//   secret: process.env.COOKIE_SECRET,
+//   cookie: {
+//     httpOnly: true,
+//     secure: false,
+//   },
+// }
+// app.use(session(sessionOption))
 app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.session())
 
 app.use('/api/v1', routes)
 

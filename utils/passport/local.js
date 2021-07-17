@@ -12,7 +12,9 @@ module.exports = () => {
     try {
       const exUser = await User.findOne({ where: { email }})
       if (exUser) {
-        const result = await bcrypt.compare(password, exUser.password)
+        result = exUser.password === password
+        // this is real!!!!!
+        // const result = await bcrypt.compare(password, exUser.password)
         if (result) {
           done(null, exUser)
         } else {
