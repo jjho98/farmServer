@@ -1,5 +1,6 @@
 
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const passport = require('passport')
 // const { isAuthenticated } = require('./middlewares')
 
@@ -20,7 +21,11 @@ router.post('/login/customer', async (req, res, next) => {
       if (loginError) {
         return next(loginError)
       } 
-      return res.status(200).json({message: '로그인 성공'})
+      const token = jwt.sign(
+        { id: user.id, nickname: user.nickname, isSeller: user.isSeller }, 
+        process.env.JWT_SECRET
+      )
+      return res.status(200).json({token})
     })
   })(req, res, next)
 })
@@ -40,7 +45,11 @@ router.post('/login/seller', async (req, res, next) => {
       if (loginError) {
         return next(loginError)
       }
-      return res.status(200).json({message: '로그인 성공'})
+      const token = jwt.sign(
+        { id: user.id, nickname: user.nickname, isSeller: user.isSeller }, 
+        process.env.JWT_SECRET
+      )
+      return res.status(200).json({token})
     })
   })(req, res, next)
 })
