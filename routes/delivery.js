@@ -2,10 +2,10 @@ const express = require('express')
 const router = express.Router()
 const { product } = require('../crud')
 
-// /:category?offset=x
+// /:category?index=x
 router.get('/:category', async (req, res, next) => {
   try {
-    const categoryList = await product.findSomeDeliveryByCategory(req.params.category, req.query.offset)
+    const categoryList = await product.findSomeDeliveryByCategory(req.params.category, req.query.index)
     res.status(200).json(categoryList)
   } catch(err) {
     next(err)
