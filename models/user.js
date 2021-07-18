@@ -18,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     nickname: {
       type: DataTypes.STRING(20),
-      allowNull: true
+      allowNull: true,
+      unique: "nickname_UNIQUE"
     },
     provider: {
       type: DataTypes.STRING(10),
@@ -32,10 +33,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(80),
       allowNull: true
     },
-    isSeller: {
-      type: DataTypes.TINYINT,
+    role: {
+      type: DataTypes.STRING(15),
       allowNull: false,
-      defaultValue: 0
+      defaultValue: "customer"
     }
   }, {
     sequelize,
@@ -57,6 +58,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "email" },
+        ]
+      },
+      {
+        name: "nickname_UNIQUE",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "nickname" },
         ]
       },
     ]

@@ -1,7 +1,7 @@
 const passport = require("passport")
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
-const {User} = require('../../models')
+const {user} = require('../../crud')
 
 module.exports = () => {
   passport.use(new LocalStrategy({
@@ -10,7 +10,7 @@ module.exports = () => {
   },
   async (email, password, done) => {
     try {
-      const exUser = await User.findOne({ where: { email }})
+      const exUser = await user.findByEmail(email)
       if (exUser) {
         result = exUser.password === password
         // this is real!!!!!

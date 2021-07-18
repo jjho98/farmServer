@@ -27,7 +27,8 @@ sequelize.sync({ force: false })
 
 // rest api 위해 cors 허용
 app.use(cors({
-  origin: "http://localhost:8080"
+  origin: "http://localhost:8080",
+  credentials: true,
 }))
 
 app.use(logger('dev'));

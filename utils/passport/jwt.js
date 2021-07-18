@@ -1,5 +1,5 @@
 const passport = require("passport")
-const User = require("../../models/User")
+const { user } = require("../../crud")
 const { Strategy: JwtStrategy , ExtractJwt} = require('passport-jwt')
 
 options = {
@@ -7,18 +7,14 @@ options = {
   secretOrKey: process.env.JWT_SECRET
 }
 
+// jwt verify callback
 module.exports = () => {
   passport.use(new JwtStrategy(options, async (jwt_payload, done) => {
-    try {
-      const exUser = await User.findOne({
-        id: jwt_payload.id, 
-      })
-      if(!exUser) {
-        return done(null, false)
-      }
-    } catch(err) {
-      return done(err, false)
+    const expDate = new Date(jwt_payload.exp)
+    if(expDate < new Date()) {
+      return done(null, false)
     }
-    return done(null, exUser)
+    const user = jwt_payload
+    return done(null, user)
   }))
 }

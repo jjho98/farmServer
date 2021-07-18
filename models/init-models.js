@@ -12,6 +12,7 @@ var _ProductDescription = require("./ProductDescription");
 var _ProductImage = require("./ProductImage");
 var _ProductionAddress = require("./ProductionAddress");
 var _Question = require("./Question");
+var _RefreshToken = require("./RefreshToken");
 var _Review = require("./Review");
 var _ReviewImage = require("./ReviewImage");
 var _Seller = require("./Seller");
@@ -32,6 +33,7 @@ function initModels(sequelize) {
   var ProductImage = _ProductImage(sequelize, DataTypes);
   var ProductionAddress = _ProductionAddress(sequelize, DataTypes);
   var Question = _Question(sequelize, DataTypes);
+  var RefreshToken = _RefreshToken(sequelize, DataTypes);
   var Review = _Review(sequelize, DataTypes);
   var ReviewImage = _ReviewImage(sequelize, DataTypes);
   var Seller = _Seller(sequelize, DataTypes);
@@ -123,6 +125,7 @@ function initModels(sequelize) {
     ProductImage,
     ProductionAddress,
     Question,
+    RefreshToken,
     Review,
     ReviewImage,
     Seller,
