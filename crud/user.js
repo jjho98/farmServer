@@ -1,7 +1,16 @@
 const { User } = require('../models')
+const Seller = require('../models/Seller')
 
 exports.findById = async (id) => {
-  const user = await User.findById(id)
+  const user = await User.findByPk(id, {
+    attributes: [
+      'email', 
+      'nickname',
+      'provider',
+      'snsId',
+      'profile'
+    ],
+  })
   return user
 }
 

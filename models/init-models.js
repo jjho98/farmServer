@@ -106,10 +106,6 @@ function initModels(sequelize) {
   TotalOrder.hasMany(OptionOrder, { as: "OptionOrders", foreignKey: "TotalOrder_id"});
   OptionOrder.belongsTo(TotalOrder, { as: "TotalOrder_Customer", foreignKey: "TotalOrder_Customer_id"});
   TotalOrder.hasMany(OptionOrder, { as: "TotalOrder_Customer_OptionOrders", foreignKey: "TotalOrder_Customer_id"});
-  Customer.belongsTo(User, { as: "User", foreignKey: "User_id"});
-  User.hasMany(Customer, { as: "Customers", foreignKey: "User_id"});
-  Seller.belongsTo(User, { as: "User", foreignKey: "User_id"});
-  User.hasMany(Seller, { as: "Sellers", foreignKey: "User_id"});
 
   return {
     Answer,

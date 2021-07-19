@@ -7,19 +7,38 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    User_id: {
-      type: DataTypes.INTEGER,
+    email: {
+      type: DataTypes.STRING(45),
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'User',
-        key: 'id'
-      }
+      unique: "email_UNIQUE"
+    },
+    password: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    nickname: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      unique: "nickname_UNIQUE"
+    },
+    provider: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+      defaultValue: "local"
+    },
+    snsId: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    profile: {
+      type: DataTypes.STRING(80),
+      allowNull: true
     }
   }, {
     sequelize,
     tableName: 'Seller',
-    timestamps: false,
+    timestamps: true,
+    paranoid: true,
     indexes: [
       {
         name: "PRIMARY",
@@ -27,14 +46,22 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "User_id" },
         ]
       },
       {
-        name: "fk_Seller_User1",
+        name: "email_UNIQUE",
+        unique: true,
         using: "BTREE",
         fields: [
-          { name: "User_id" },
+          { name: "email" },
+        ]
+      },
+      {
+        name: "nickname_UNIQUE",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "nickname" },
         ]
       },
     ]
