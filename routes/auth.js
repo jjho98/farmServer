@@ -8,7 +8,8 @@ const router = express.Router()
 const CreateError = require('http-errors')
 
 const opt = { 
-  algorithm: 'RS256',
+  // 배포 시에 RS256 사용
+  // algorithm: 'RS256',
   expiresIn: '30m'
 }
 
@@ -38,7 +39,7 @@ router.post('/login/customer', async (req, res, next) => {
 
         // refreshToken 만들어서 데이터베이스에 넣기
         const madeRefreshToken = await refreshToken.create(user.nickname)
-        return res.status(200).json({accessToken, madeRefreshToken })
+        return res.status(200).json({accessToken, refreshToken: madeRefreshToken })
       } catch(err) {
         next(err)
       }
@@ -71,7 +72,7 @@ router.post('/login/seller', async (req, res, next) => {
 
         // refreshToken 만들어서 데이터베이스에 넣기
         const madeRefreshToken = await refreshToken.create(user.nickname)
-        return res.status(200).json({accessToken, madeRefreshToken })
+        return res.status(200).json({accessToken, refreshToken: madeRefreshToken })
       } catch(err) {
         next(err)
       }
@@ -101,17 +102,18 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
 
 // 닉네임, 판매자인지 정보 제공
 router.get('/me', isAuthenticated, async (req, res, next) => {
-
+  //  임시
+  res.status(200).json({message: '인증 돼셨어요'})
 })
 
 // accessToken 사용 시간 만료 후 다시 토큰 요청
-router.get('/token', isAuthenticated, async (req, res, next) => {
-  const nickname = req.body.nickname
-  const sentRefreshToken = req.body.refreshToken
+router.get('/token/refresh', isAuthenticated, async (req, res, next) => {
+  const nickname = req.cookies.nickname
+  const sentRefreshToken = req.cookies.refreshToken
   try {
     const foundRefreshToken = await refreshToken.find(nickname, sentRefreshToken)
     if (!foundRefreshToken) {
-      return next(CreateError(401, '유효한 토큰이 아닙니다'))
+      return next(CreateError(401, 'InvalidRefresh'))
     }
     const user = await user.findByNickname(nickname)
     const accessToken = jwt.sign(
@@ -125,11 +127,11 @@ router.get('/token', isAuthenticated, async (req, res, next) => {
   }
 })
 
-// refreshTOken 삭제 요청
+// refreshToken 삭제 요청
 router.post('/token/reject', isAuthenticated, async (req, res, next) => {
   try {
-    const nickname = req.body.nickname
-    const sentRefreshToken = req.body.refreshToken
+    const nickname = req.cookies.nickname
+    const sentRefreshToken = req.cookies.refreshToken
     const foundRefreshToken = await refreshToken.find(nickname, sentRefreshToken)
     if (foundRefreshToken) {
       await refreshToken.delete(foundRefreshToken)

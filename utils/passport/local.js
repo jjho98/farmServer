@@ -6,13 +6,13 @@ const {user} = require('../../crud')
 module.exports = () => {
   passport.use(new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password'
+    passwordField: 'password',
   },
   async (email, password, done) => {
     try {
       const exUser = await user.findByEmail(email)
       if (exUser) {
-        result = exUser.password === password
+        const result = exUser.password === password
         // this is real!!!!!
         // const result = await bcrypt.compare(password, exUser.password)
         if (result) {

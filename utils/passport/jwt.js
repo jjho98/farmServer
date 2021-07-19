@@ -1,6 +1,7 @@
 const passport = require("passport")
 const { user } = require("../../crud")
 const { Strategy: JwtStrategy , ExtractJwt} = require('passport-jwt')
+const CreateError = require('http-errors')
 
 options = {
   jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -12,7 +13,7 @@ module.exports = () => {
   passport.use(new JwtStrategy(options, async (jwt_payload, done) => {
     const expDate = new Date(jwt_payload.exp)
     if(expDate < new Date()) {
-      return done(null, false)
+      return done(CreateError(401, 'ExpiredToken'), false)
     }
     const user = jwt_payload
     return done(null, user)

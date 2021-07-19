@@ -7,7 +7,7 @@ exports.create = async (nickname) => {
     nickname,
     token: refreshToken
   })
-  return token
+  return token.token
 }
 
 exports.find = async (nickname, token) => {
