@@ -18,6 +18,14 @@ module.exports = function(sequelize, DataTypes) {
     detailAddr: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    Seller_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Seller',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -30,6 +38,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "fk_ProductionAddress_Seller",
+        using: "BTREE",
+        fields: [
+          { name: "Seller_id" },
         ]
       },
     ]

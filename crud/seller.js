@@ -1,4 +1,4 @@
-const { Seller } = require('../models')
+const { Seller, ProductionAddress } = require('../models')
 
 exports.findById = async (id) => {
   const user = await Seller.findByPk(id, 
@@ -19,6 +19,11 @@ exports.findByEmail = async (email) => {
   return user
 }
 
+exports.findProductionAddresses = async (id) => {
+  const seller = await Seller.findByPk(id)
+  return await seller.getProductionAddresses()
+}
+ 
 // exports.findByNickname = async (nickname) => {
 //   const user = await User.findOne({ where: {nickname}})
 //   return user

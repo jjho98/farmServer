@@ -20,8 +20,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(45),
       allowNull: false
     },
+    summary: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
     description: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(200),
       allowNull: false
     },
     thumbnail: {
@@ -59,6 +63,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: 1
+    },
+    notice: {
+      type: DataTypes.STRING(100),
+      allowNull: true
     }
   }, {
     sequelize,

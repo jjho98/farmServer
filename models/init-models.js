@@ -17,7 +17,6 @@ var _Review = require("./Review");
 var _ReviewImage = require("./ReviewImage");
 var _Seller = require("./Seller");
 var _TotalOrder = require("./TotalOrder");
-var _User = require("./User");
 
 function initModels(sequelize) {
   var Answer = _Answer(sequelize, DataTypes);
@@ -38,7 +37,6 @@ function initModels(sequelize) {
   var ReviewImage = _ReviewImage(sequelize, DataTypes);
   var Seller = _Seller(sequelize, DataTypes);
   var TotalOrder = _TotalOrder(sequelize, DataTypes);
-  var User = _User(sequelize, DataTypes);
 
   Customer.belongsToMany(DeliveryAddress, { as: 'DeliveryAddress_id_DeliveryAddresses', through: TotalOrder, foreignKey: "Customer_id", otherKey: "DeliveryAddress_id" });
   Customer.belongsToMany(Product, { as: 'Product_id_Products', through: Like, foreignKey: "Customer_id", otherKey: "Product_id" });
@@ -102,6 +100,8 @@ function initModels(sequelize) {
   Review.hasMany(ReviewImage, { as: "ReviewImages", foreignKey: "Review_id"});
   Product.belongsTo(Seller, { as: "Seller", foreignKey: "Seller_id"});
   Seller.hasMany(Product, { as: "Products", foreignKey: "Seller_id"});
+  ProductionAddress.belongsTo(Seller, { as: "Seller", foreignKey: "Seller_id"});
+  Seller.hasMany(ProductionAddress, { as: "ProductionAddresses", foreignKey: "Seller_id"});
   OptionOrder.belongsTo(TotalOrder, { as: "TotalOrder", foreignKey: "TotalOrder_id"});
   TotalOrder.hasMany(OptionOrder, { as: "OptionOrders", foreignKey: "TotalOrder_id"});
   OptionOrder.belongsTo(TotalOrder, { as: "TotalOrder_Customer", foreignKey: "TotalOrder_Customer_id"});
@@ -126,7 +126,6 @@ function initModels(sequelize) {
     ReviewImage,
     Seller,
     TotalOrder,
-    User,
   };
 }
 module.exports = initModels;
