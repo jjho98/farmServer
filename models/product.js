@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     thumbnail: {
       type: DataTypes.STRING(80),
-      allowNull: false
+      allowNull: true
     },
     category: {
       type: DataTypes.STRING(45),
@@ -67,6 +67,11 @@ module.exports = function(sequelize, DataTypes) {
     notice: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    hasOneOption: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,

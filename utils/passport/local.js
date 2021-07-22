@@ -15,7 +15,7 @@ module.exports = () => {
         const result = exUser.password === password
         // this is real!!!!!
         // const result = await bcrypt.compare(password, exUser.password)
-        delete exUser.password
+        delete exUser.passwordr
         if (result) {
           return done(null, exUser)
         } else {

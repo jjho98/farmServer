@@ -18,11 +18,6 @@ exports.findByEmail = async (email) => {
   const user = await Seller.findOne({ where: {email} })
   return user
 }
-
-exports.findProductionAddresses = async (id) => {
-  const seller = await Seller.findByPk(id)
-  return await seller.getProductionAddresses()
-}
  
 // exports.findByNickname = async (nickname) => {
 //   const user = await User.findOne({ where: {nickname}})

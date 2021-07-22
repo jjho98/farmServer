@@ -34,3 +34,8 @@ exports.findItemByPk = async(id) => {
   return item
 }
 
+exports.createProduct = async (product) => {
+  const item = await Product.create(product)
+  return item
+}
+
