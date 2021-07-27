@@ -4,39 +4,6 @@ const { isNotLoggedIn, isLoggedIn } = require('../middlewares')
 const { productCrud, optionCrud, productImageCrud } = require('../../crud')
 const upload = require('../../utils/multer')
 
-// router.post('/images', isLoggedIn, (req, res, next) => {
-//   try {
-//     const form = new foormidable.IncomingForm({
-//       uploadDir: 'public/images',
-//       keepExtensions: true,
-//     })
-
-//     const uploaded = []
-
-//     form.parse(req)
-//     .on('file', (name, file) => {
-//       const path = file.path.split('\\')
-//       console.log('이미지 파일 하나 업로드')
-//       uploaded.push({
-//         img: path[path.length - 1],
-//         // 이걸 어떻게 받지?
-//         Product_id: 33
-//       })
-//     })
-//     .once('end', () => {
-//       // 제품 이미지 데이터베이스에 저장
-
-
-//       res.status(200).json({message: '이미지 업로드 성공'})
-//     })
-
-//   } catch(err) {
-//     console.error(err)
-//   }
-
-//   // res.status(200).json({message: '이미지 업로드 성공'})
-// })
-
 // 이미지 최대
 router.post('/', isLoggedIn, upload.array('files', 10) ,async (req, res, next) => {
   try {

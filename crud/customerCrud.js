@@ -1,22 +1,20 @@
-const { User } = require('../models')
-const Seller = require('../models/Seller')
+const { Customer } = require('../models')
 
 exports.findById = async (id) => {
-  const user = await User.findByPk(id, {
+  const customer = await Customer.findByPk(id, {
     attributes: [
       'email', 
       'nickname',
       'provider',
-      'snsId',
       'profile'
     ],
   })
-  return user
+  return customer
 }
 
 exports.findByEmail = async (email) => {
-  const user = await User.findOne({ where: {email}})
-  return user
+  const customer = await Customer.findOne({ where: {email}})
+  return customer
 }
 
 exports.findByNickname = async (nickname) => {

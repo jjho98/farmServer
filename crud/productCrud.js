@@ -1,9 +1,18 @@
-const { Product } = require('../models')
+const { Product, Option, ProductImage } = require('../models')
 
+// create
+exports.createProduct = async (product) => {
+  const item = await Product.create(product)
+  return item
+}
+
+
+// read
 exports.findSomeDeliveryByCategory = async (category, index) => {
   const deliveryList = await Product.findAndCountAll({
     where: {
       category,
+      deletedAt: null,
       isSelling: 1,
     },
     limit: 10,
@@ -34,8 +43,12 @@ exports.findItemByPk = async(id) => {
   return item
 }
 
-exports.createProduct = async (product) => {
-  const item = await Product.create(product)
+exports.getProductDetail = async(id) => {
+  const item = await Product.findByPk(id, {
+    include: [
+      {model: Option, as: 'Options'},
+      {model: ProductImage, as: 'ProductImages'},
+    ],
+  })
   return item
-}
-
+} 

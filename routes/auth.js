@@ -3,7 +3,7 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const { isAuthenticated, isNotLoggedIn, isLoggedIn } = require('./middlewares')
-const { refreshToken, user } = require('../crud')
+const { refreshToken, customerCrud } = require('../crud')
 const router = express.Router()
 const CreateError = require('http-errors')
 
@@ -13,16 +13,13 @@ const opt = {
   expiresIn: '30m'
 }
 
-router.post('/login/customer', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   passport.authenticate('localCustomer',  (authError, user, info) => {
     if (authError) {
       return next(authError)
     }
     if (!user) {
       return res.status(404).json(info)
-    }
-    if (user.role !== 'customer') {
-      return res.status(403).json({message: '구매자 계정으로 로그인 해주세요'})
     }
     return req.login(user, async (loginError) => {
       if (loginError) {
@@ -74,11 +71,14 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
 
 
 
-
-// 닉네임, 판매자인지 정보 제공
+// cutomer 정보 제공
 router.get('/me', isLoggedIn, async (req, res, next) => {
-  //  임시
-  res.status(200).json({message: '인증 돼셨어요'})
+  try {
+    const customer = await customerCrud.findById(req.user)
+    res.status(200).json(customer)
+  } catch(err) {
+    next(err)
+  }
 })
 
 // accessToken 사용 시간 만료 후 다시 토큰 요청
