@@ -1,5 +1,6 @@
 const { Customer } = require('../models')
 
+// read
 exports.findById = async (id) => {
   const customer = await Customer.findByPk(id, {
     attributes: [
@@ -29,6 +30,7 @@ exports.findKakaoUser = async (profile) => {
   return user
 }
 
+// create
 exports.createKakaoUser = async (profile) => {
   const user = await User.create({
     email: profile._json && profile._json.kaccount_email,
@@ -37,4 +39,23 @@ exports.createKakaoUser = async (profile) => {
     provider: 'kakao',
   })
   return user
+}
+
+// update
+exports.updateProfile = async (id, profile) => {
+  const customer = await Customer.update({
+    profile
+  }, {
+    where: {id}
+  })
+  return
+}
+
+exports.updateNickname = async (id, nickname) => {
+  const customer = await Customer.update({
+    nickname
+  }, {
+    where: {id}
+  })
+  return
 }

@@ -70,17 +70,6 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
 
 
 
-
-// cutomer 정보 제공
-router.get('/me', isLoggedIn, async (req, res, next) => {
-  try {
-    const customer = await customerCrud.findById(req.user)
-    res.status(200).json(customer)
-  } catch(err) {
-    next(err)
-  }
-})
-
 // accessToken 사용 시간 만료 후 다시 토큰 요청
 router.get('/token/refresh', isAuthenticated, async (req, res, next) => {
   const nickname = req.cookies.nickname
