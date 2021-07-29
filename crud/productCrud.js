@@ -8,13 +8,17 @@ exports.createProduct = async (product) => {
 
 
 // read
-exports.findSomeDeliveryByCategory = async (category, index) => {
+exports.findSomeDeliveryByCategory = async (category, index, filter, orderWay) => {
+  console.log(filter)
   const deliveryList = await Product.findAndCountAll({
     where: {
       category,
       deletedAt: null,
       isSelling: 1,
     },
+    order: [
+      [filter, orderWay]
+    ],
     limit: 10,
     offset: index * 10
   })

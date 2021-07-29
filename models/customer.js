@@ -18,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     nickname: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: false,
+      unique: "nickname_UNIQUE"
     },
     provider: {
       type: DataTypes.STRING(10),
@@ -53,6 +54,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "email" },
+        ]
+      },
+      {
+        name: "nickname_UNIQUE",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "nickname" },
         ]
       },
     ]

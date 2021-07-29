@@ -30,34 +30,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     thumbnail: {
       type: DataTypes.STRING(80),
-      allowNull: true
+      allowNull: false
     },
     category: {
       type: DataTypes.STRING(45),
       allowNull: false
     },
-    ProductionAddress_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'ProductionAddress',
-        key: 'id'
-      }
-    },
-    Seller_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Seller',
-        key: 'id'
-      }
-    },
     canDirect: {
       type: DataTypes.TINYINT,
-      allowNull: false,
-      defaultValue: 0
+      allowNull: false
     },
     isSelling: {
       type: DataTypes.TINYINT,
@@ -72,6 +53,29 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: 1
+    },
+    orderCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+    Seller_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'Seller',
+        key: 'id'
+      }
+    },
+    ProductionAddress_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'ProductionAddress',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -85,8 +89,8 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "ProductionAddress_id" },
           { name: "Seller_id" },
+          { name: "ProductionAddress_id" },
         ]
       },
       {

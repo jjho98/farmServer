@@ -19,24 +19,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Product',
         key: 'id'
       }
-    },
-    Product_ProductionAddress_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Product',
-        key: 'ProductionAddress_id'
-      }
-    },
-    Product_Seller_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Product',
-        key: 'Seller_id'
-      }
     }
   }, {
     sequelize,
@@ -50,8 +32,6 @@ module.exports = function(sequelize, DataTypes) {
         fields: [
           { name: "id" },
           { name: "Product_id" },
-          { name: "Product_ProductionAddress_id" },
-          { name: "Product_Seller_id" },
         ]
       },
       {
@@ -59,8 +39,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "Product_id" },
-          { name: "Product_ProductionAddress_id" },
-          { name: "Product_Seller_id" },
         ]
       },
     ]

@@ -1,15 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Like', {
-    Customer_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Customer',
-        key: 'id'
-      }
-    },
     Product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -19,10 +10,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    Product_Seller_id: {
+    Customer_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'Customer',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -34,16 +29,15 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "Customer_id" },
           { name: "Product_id" },
-          { name: "Product_Seller_id" },
+          { name: "Customer_id" },
         ]
       },
       {
-        name: "fk_Customer_has_Product_Product1",
+        name: "fk_Product_has_Customer_Customer1",
         using: "BTREE",
         fields: [
-          { name: "Product_id" },
+          { name: "Customer_id" },
         ]
       },
     ]

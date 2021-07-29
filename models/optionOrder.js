@@ -25,15 +25,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    Option_Product_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Option',
-        key: 'Product_id'
-      }
-    },
     count: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -51,15 +42,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'TotalOrder',
         key: 'id'
       }
-    },
-    TotalOrder_Customer_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'TotalOrder',
-        key: 'Customer_id'
-      }
     }
   }, {
     sequelize,
@@ -74,9 +56,7 @@ module.exports = function(sequelize, DataTypes) {
           { name: "id" },
           { name: "Customer_id" },
           { name: "Option_id" },
-          { name: "Option_Product_id" },
           { name: "TotalOrder_id" },
-          { name: "TotalOrder_Customer_id" },
         ]
       },
       {
@@ -91,7 +71,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "Option_id" },
-          { name: "Option_Product_id" },
         ]
       },
       {
@@ -99,7 +78,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "TotalOrder_id" },
-          { name: "TotalOrder_Customer_id" },
         ]
       },
     ]

@@ -18,11 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     Product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Product',
-        key: 'id'
-      }
+      primaryKey: true
     },
     Product_Seller_id: {
       type: DataTypes.INTEGER,
@@ -61,13 +57,6 @@ module.exports = function(sequelize, DataTypes) {
           { name: "id" },
           { name: "Product_id" },
           { name: "Product_Seller_id" },
-        ]
-      },
-      {
-        name: "fk_ProductDescription_Product1",
-        using: "BTREE",
-        fields: [
-          { name: "Product_id" },
         ]
       },
     ]

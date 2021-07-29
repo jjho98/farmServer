@@ -1,29 +1,33 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Comment', {
+  return sequelize.define('ProductOption', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    content: {
-      type: DataTypes.STRING(100),
+    name: {
+      type: DataTypes.STRING(45),
       allowNull: false
     },
-    Review_id: {
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    Product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: 'Review',
+        model: 'Product',
         key: 'id'
       }
     }
   }, {
     sequelize,
-    tableName: 'Comment',
-    timestamps: true,
+    tableName: 'ProductOption',
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
@@ -31,14 +35,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "Review_id" },
+          { name: "Product_id" },
         ]
       },
       {
-        name: "fk_Comment_Review1",
+        name: "fk_ProductOption_Product1",
         using: "BTREE",
         fields: [
-          { name: "Review_id" },
+          { name: "Product_id" },
         ]
       },
     ]

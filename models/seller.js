@@ -9,8 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING(45),
-      allowNull: false,
-      unique: "email_UNIQUE"
+      allowNull: false
     },
     password: {
       type: DataTypes.STRING(45),
@@ -18,8 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nickname: {
       type: DataTypes.STRING(20),
-      allowNull: false,
-      unique: "nickname_UNIQUE"
+      allowNull: false
     },
     provider: {
       type: DataTypes.STRING(10),
@@ -46,22 +44,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "email_UNIQUE",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "email" },
-        ]
-      },
-      {
-        name: "nickname_UNIQUE",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "nickname" },
         ]
       },
     ]
