@@ -1,4 +1,5 @@
 const dotenv = require('dotenv')
+dotenv.config()
 
 const createError = require('http-errors');
 const express = require('express');
@@ -14,7 +15,6 @@ const passportConfig = require('./utils/passport');
 
 const routes = require('./routes')
 
-dotenv.config()
 
 const app = express();
 passportConfig();

@@ -23,7 +23,8 @@
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
     "rand-token": "^1.0.1",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "twilio": "^3.66.1"
   },
   "devDependencies": {
     "moment": "^2.29.1",

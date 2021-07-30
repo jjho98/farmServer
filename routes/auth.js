@@ -6,14 +6,15 @@ const { isAuthenticated, isNotLoggedIn, isLoggedIn } = require('./middlewares')
 const { refreshToken, customerCrud } = require('../crud')
 const router = express.Router()
 const CreateError = require('http-errors')
+const {sendVerificationSms, verifyCode} = require('../utils/twilio')
 
-const opt = { 
-  // 배포 시에 RS256 사용
-  // algorithm: 'RS256',
-  expiresIn: '30m'
-}
+// const opt = { 
+//   // 배포 시에 RS256 사용
+//   // algorithm: 'RS256',
+//   expiresIn: '30m'
+// }
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', isNotLoggedIn, async (req, res, next) => {
   passport.authenticate('localCustomer',  (authError, user, info) => {
     if (authError) {
       return next(authError)
@@ -25,45 +26,48 @@ router.post('/login', async (req, res, next) => {
       if (loginError) {
         return next(loginError)
       } 
-
-      // try {
-      //   // accessToken
-      //   const accessToken = jwt.sign(
-      //     { nickname: user.nickname, role: user.role }, 
-      //     process.env.JWT_SECRET,
-      //     opt
-      //   )
-
-      //   // refreshToken 만들어서 데이터베이스에 넣기
-      //   const madeRefreshToken = await refreshToken.create(user.nickname)
-      //   return res.status(200).json({accessToken, refreshToken: madeRefreshToken })
-      // } catch(err) {
-      //   next(err)
-      // }
       return res.status(200).json({message: '로그인 성공'})
     })
   })(req, res, next)
 })
 
 
+router.post('/logout', isAuthenticated, (req, res, next) => {
+  try {
+    req.logout()
+    req.session.destroy()
+    res.status(200).json({message: '로그아웃 성공'})
+  } catch(err) {
+    next(err)
+  }
+})
 
-//  서버에 session이 없기 때문에 서버에서 로그아웃 불가
-// router.post('/logout', isAuthenticated, (req, res, next) => {
-//   try {
-//     req.logout()
-//     req.session.destroy()
-//     res.status(200).json({message: '로그아웃 성공'})
-//   } catch(err) {
-//     next(err)
-//   }
-// })
+router.post('/sms', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    sendVerificationSms(req.body.phoneNumber)
+  } catch(err) {
+    next(err)
+  }
+})
 
-router.get('/kakao', passport.authenticate('kakao'))
+router.post('/sms/verify', async (req, res, next) => {
+  try {
+    const result = await verifyCode(req.body.phoneNumber, req.body.typedCode)
+    if (result === 'succeed') {
+      return res.status(200).json({message: 'ok'})
+    } else {
+      return res.status(409).json({message: 'fail'})
+    }
+  } catch(err) {
+    next(err)
+  }
+})
+
+router.post('/kakao', passport.authenticate('kakao'))
  
-router.get('/kakao/callback', passport.authenticate('kakao', {
-  successRedirect: '/',
-  failureRedirect: '/'
-}), (req, res) => {
+router.get('/kakao/callback', passport.authenticate('kakao'), (req, res) => {
+  console.log('kakao callback')
   res.status(200).json({message: '카카오 로그인'})
 })
 

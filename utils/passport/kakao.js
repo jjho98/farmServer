@@ -1,6 +1,6 @@
 const passport = require('passport')
 const kakaoStrategy = require('passport-kakao').Strategy
-const {user} = require('../../crud')
+const {customerCrud} = require('../../crud')
 
 module.exports = () => {
   passport.use(new kakaoStrategy({
@@ -9,11 +9,11 @@ module.exports = () => {
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
-      const exUser = await user.findKakaoUser(profile)
+      const exUser = await customerCrud.findKakaoUser(profile)
       if (exUser) {
         done(null, exUser)
       } else {
-        const newUser = await user.createKakaoUser(profile)
+        const newUser = await customerCrud.createKakaoUser(profile)
         done(null, newUser)
       }
     }
