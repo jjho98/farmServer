@@ -31,6 +31,28 @@ router.post('/login', isNotLoggedIn, async (req, res, next) => {
   })(req, res, next)
 })
 
+router.post('/join', isNotLoggedIn, async (req, res, next) => {
+  try {
+    const {customer, created} = await customerCrud.createLocalUser(req.body)
+
+    // 기존에 email로 가입한 사람이 존재
+    if (!created) {
+      res.status(409).json({message: '이미 가입된 이메일입니다'})
+    } 
+    // 회원가입 성공
+    else {
+      return req.login(customer, async (loginError) => {
+        if (loginError) {
+          next(loginError)
+          return res.status(401).json({message: '로그인 과정에서 문제가 발생했습니다'})
+        } 
+        return res.status(201).json({message: '회원가입 됐습니다'})
+      })
+    }
+  } catch(err) {
+    next(err)
+  }
+})
 
 router.post('/logout', isAuthenticated, (req, res, next) => {
   try {

@@ -30,6 +30,7 @@ exports.sendVerificationSms = (receiverPhone) => {
 exports.verifyCode = (receiverPhone, typedCode) => {
   return new Promise((resolve, reject) => {
     if (verificationCodes.get(receiverPhone) === typedCode) {
+      verificationCodes.delete(receiverPhone)
       resolve('succeed')
     } else {
       resolve('fail')

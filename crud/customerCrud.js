@@ -1,4 +1,5 @@
 const { Customer } = require('../models')
+const bcrypt = require('bcrypt')
 
 // read
 exports.findById = async (id) => {
@@ -39,6 +40,22 @@ exports.createKakaoUser = async (profile) => {
     provider: 'kakao',
   })
   return user
+}
+
+exports.createLocalUser = async (user) => {
+  console.log(user)
+  let {email, password, nickname, phone} = user
+  const hash = await bcrypt.hash(password, 12)
+  const [customer, created] = await Customer.findOrCreate({
+    where: { email },
+    defaults: {
+      email,
+      password: hash,
+      nickname,
+      phone,
+    }
+  })
+  return {customer, created}
 }
 
 // update

@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: "email_UNIQUE"
     },
     password: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     nickname: {
@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     profile: {
       type: DataTypes.STRING(80),
+      allowNull: true
+    },
+    phone: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
