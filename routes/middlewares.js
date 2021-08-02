@@ -19,6 +19,6 @@ exports.isNotLoggedIn = (req, res, next) => {
 };
 
 // jwt로 인증 여부 확인
-exports.isAuthenticated = (req, res, next) => {
-  passport.authenticate('jwt', {session: 'false'})(req, res, next)
-}
+// exports.isAuthenticated = (req, res, next) => {
+//   passport.authenticate('jwt', {session: 'false'})(req, res, next)
+// }

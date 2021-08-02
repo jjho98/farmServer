@@ -1,4 +1,4 @@
-const { Customer } = require('../models')
+const { Customer, Option, CartItem } = require('../models')
 const bcrypt = require('bcrypt')
 
 // read

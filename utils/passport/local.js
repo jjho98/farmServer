@@ -12,9 +12,9 @@ module.exports = () => {
     try {
       const exUser = await seller.findByEmail(email)
       if (exUser) {
-        const result = exUser.password === password
+        // const result = exUser.password === password
         // this is real!!!!!
-        // const result = await bcrypt.compare(password, exUser.password)
+        const result = await bcrypt.compare(password, exUser.password)
         delete exUser.password
         if (result) {
           return done(null, exUser)
@@ -38,9 +38,9 @@ module.exports = () => {
     try {
       const exUser = await customerCrud.findByEmail(email)
       if (exUser) {
-        const result = exUser.password === password
+        // const result = exUser.password === password
         // this is real!!!!!
-        // const result = await bcrypt.compare(password, exUser.password)
+        const result = await bcrypt.compare(password, exUser.password)
         delete exUser.password
         if (result) {
           return done(null, exUser)

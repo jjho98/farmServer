@@ -54,7 +54,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   }
 })
 
-router.post('/logout', isAuthenticated, (req, res, next) => {
+router.post('/logout', isLoggedIn, (req, res, next) => {
   try {
     req.logout()
     req.session.destroy()
@@ -97,39 +97,39 @@ router.get('/kakao/callback', passport.authenticate('kakao'), (req, res) => {
 
 
 // accessToken 사용 시간 만료 후 다시 토큰 요청
-router.get('/token/refresh', isAuthenticated, async (req, res, next) => {
-  const nickname = req.cookies.nickname
-  const sentRefreshToken = req.cookies.refreshToken
-  try {
-    const foundRefreshToken = await refreshToken.find(nickname, sentRefreshToken)
-    if (!foundRefreshToken) {
-      return next(CreateError(401, 'InvalidRefresh'))
-    }
-    const user = await user.findByNickname(nickname)
-    const accessToken = jwt.sign(
-      { nickname: user.nickname, role: user.role }, 
-      process.env.JWT_SECRET,
-      opt
-    )
-    res.status(200).json({accessToken})
-  } catch(err) {
-    next(err)
-  }
-})
+// router.get('/token/refresh', isAuthenticated, async (req, res, next) => {
+//   const nickname = req.cookies.nickname
+//   const sentRefreshToken = req.cookies.refreshToken
+//   try {
+//     const foundRefreshToken = await refreshToken.find(nickname, sentRefreshToken)
+//     if (!foundRefreshToken) {
+//       return next(CreateError(401, 'InvalidRefresh'))
+//     }
+//     const user = await user.findByNickname(nickname)
+//     const accessToken = jwt.sign(
+//       { nickname: user.nickname, role: user.role }, 
+//       process.env.JWT_SECRET,
+//       opt
+//     )
+//     res.status(200).json({accessToken})
+//   } catch(err) {
+//     next(err)
+//   }
+// })
 
-// refreshToken 삭제 요청
-router.post('/token/reject', isAuthenticated, async (req, res, next) => {
-  try {
-    const nickname = req.cookies.nickname
-    const sentRefreshToken = req.cookies.refreshToken
-    const foundRefreshToken = await refreshToken.find(nickname, sentRefreshToken)
-    if (foundRefreshToken) {
-      await refreshToken.delete(foundRefreshToken)
-    }
-    res.status(200).json({message: '삭제 완료'})
-  } catch(err) {
-    next(err)
-  }
-})
+// // refreshToken 삭제 요청
+// router.post('/token/reject', isAuthenticated, async (req, res, next) => {
+//   try {
+//     const nickname = req.cookies.nickname
+//     const sentRefreshToken = req.cookies.refreshToken
+//     const foundRefreshToken = await refreshToken.find(nickname, sentRefreshToken)
+//     if (foundRefreshToken) {
+//       await refreshToken.delete(foundRefreshToken)
+//     }
+//     res.status(200).json({message: '삭제 완료'})
+//   } catch(err) {
+//     next(err)
+//   }
+// })
 
 module.exports = router
