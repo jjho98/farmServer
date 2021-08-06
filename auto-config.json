@@ -5,7 +5,7 @@
   "host": "127.0.0.1",
   "dialect": "mysql",
   "caseModel": "p",
-  "caseFile": "c",
+  "caseFile": "p",
   "additional": {
     "underscored": "false",
     "charset": "utf8mb4",
