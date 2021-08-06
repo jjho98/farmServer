@@ -24,6 +24,7 @@
     "passport-local": "^1.0.0",
     "rand-token": "^1.0.1",
     "sequelize": "^6.6.5",
+    "tar": "^6.1.6",
     "twilio": "^3.66.1"
   },
   "devDependencies": {
