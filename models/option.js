@@ -28,6 +28,9 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'Option',
     timestamps: false,
+    underscored: 'false',
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     indexes: [
       {
         name: "PRIMARY",

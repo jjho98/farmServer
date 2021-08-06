@@ -4,8 +4,12 @@
   "database": "farmon",
   "host": "127.0.0.1",
   "dialect": "mysql",
+<<<<<<< HEAD
+  "caseModel": "c",
+=======
   "caseModel": "p",
-  "caseFile": "p",
+>>>>>>> parent of c32933c (모델명 바뀌는지 테스트2)
+  "caseFile": "c",
   "additional": {
     "underscored": "false",
     "charset": "utf8mb4",
