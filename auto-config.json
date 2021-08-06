@@ -4,8 +4,8 @@
   "database": "farmon",
   "host": "127.0.0.1",
   "dialect": "mysql",
-  "caseModel": "c",
-  "caseFile": "c", 
+  "caseModel": "p",
+  "caseFile": "c",
   "additional": {
     "underscored": "false",
     "charset": "utf8mb4",
