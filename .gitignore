@@ -1,5 +1,4 @@
 node_modules
 .env
 *.log
-seeders
 public/images
