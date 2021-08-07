@@ -33,7 +33,7 @@ sequelize
 // rest api 위해 cors 허용
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: "https://farmon.vercel.app",
     credentials: true,
   })
 );
