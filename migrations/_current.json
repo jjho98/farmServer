@@ -1,0 +1,666 @@
+{
+    "tables": {
+        "Answer": {
+            "tableName": "Answer",
+            "indexes": {
+                "ae8d2d77d472f0d35b0416fcfbfb28a1aba3ce8a": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Question_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "5813cbeb90c6943339c588274b56ef98b7aab64d": {
+                    "name": "fk_Answer_Question1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Question_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Answer_Question1"
+                    }
+                }
+            }
+        },
+        "CartItem": {
+            "tableName": "CartItem",
+            "indexes": {
+                "99e67523af7dd72ffb2f362ebe47e0721a062f10": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Customer_id"
+                        },
+                        {
+                            "name": "Option_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "454df2a094f1be3ce2b1358eea6a25da576edde1": {
+                    "name": "fk_Customer_has_Option_Customer1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Customer_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Customer_has_Option_Customer1"
+                    }
+                },
+                "8424cbbffa4db7eb70940d1226496eb8dd647e3d": {
+                    "name": "fk_Customer_has_Option_Option1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Option_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Customer_has_Option_Option1"
+                    }
+                }
+            }
+        },
+        "Comment": {
+            "tableName": "Comment",
+            "indexes": {
+                "ed724679e7bfe41e04096bcd6cf46495dbd5f3e2": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Review_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "d90a97e0935ba96e65e30c464c6b5a1085ef6d04": {
+                    "name": "fk_Comment_Review1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Review_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Comment_Review1"
+                    }
+                }
+            }
+        },
+        "Customer": {
+            "tableName": "Customer",
+            "indexes": {
+                "8761300c82a8ecf330311af649a5271f19cfa295": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "4a5845d7b946e634fc9838167c2cef69b0718496": {
+                    "name": "email_UNIQUE",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "email"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "email_UNIQUE",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "6ba35fd6b886bec48a7d1640abcd9da637e8f534": {
+                    "name": "nickname_UNIQUE",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "nickname"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "nickname_UNIQUE",
+                        "indicesType": "UNIQUE"
+                    }
+                }
+            }
+        },
+        "DeliveryAddress": {
+            "tableName": "DeliveryAddress",
+            "indexes": {
+                "573258d1affe0add1720ec0bf504d0cc1a1cd81a": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Customer_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "248ddc79b9df4a4f72666ee4ba53a0eb701979cf": {
+                    "name": "fk_DeliveryAddress_Customer1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Customer_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_DeliveryAddress_Customer1"
+                    }
+                }
+            }
+        },
+        "Like": {
+            "tableName": "Like",
+            "indexes": {
+                "6deecc1294b778174c9d1c70a61a83a488c991e8": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Product_id"
+                        },
+                        {
+                            "name": "Customer_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "d1ec6fd45417e0e7f60d32fcfbd7048fc84737e3": {
+                    "name": "fk_Product_has_Customer_Customer1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Customer_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Product_has_Customer_Customer1"
+                    }
+                }
+            }
+        },
+        "Option": {
+            "tableName": "Option",
+            "indexes": {
+                "6014ebccf50c4e7bb647ed70f41c368bb37fb428": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "dc897e05a1592c33e5ec3103a3ee994e053ba3fb": {
+                    "name": "fk_ProductOption_Product1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_ProductOption_Product1"
+                    }
+                }
+            }
+        },
+        "OptionOrder": {
+            "tableName": "OptionOrder",
+            "indexes": {
+                "eb0cf8ad5795bbd47daf62a6866b18336434d6d0": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Customer_id"
+                        },
+                        {
+                            "name": "Option_id"
+                        },
+                        {
+                            "name": "TotalOrder_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "6092ad677e00e895b0340596bf60f58e6a057b1d": {
+                    "name": "fk_Customer_has_Option_Customer2",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Customer_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Customer_has_Option_Customer2"
+                    }
+                },
+                "2c10d87fea70204e307daaa421adb794b277dfa2": {
+                    "name": "fk_Customer_has_Option_Option2",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Option_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Customer_has_Option_Option2"
+                    }
+                },
+                "4209f45869c5635d8a855ef1a8166380b511d4ee": {
+                    "name": "fk_OptionOrder_TotalOrder1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "TotalOrder_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_OptionOrder_TotalOrder1"
+                    }
+                }
+            }
+        },
+        "Product": {
+            "tableName": "Product",
+            "indexes": {
+                "0f5d387c750c058d97ac3c97ddb4fe1090021921": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Seller_id"
+                        },
+                        {
+                            "name": "ProductionAddress_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "5a7e4665812a22d682a30a15adc51047d3a32d4b": {
+                    "name": "fk_Product_ProductionAddress1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "ProductionAddress_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Product_ProductionAddress1"
+                    }
+                },
+                "678b3416c738872fca85ce7174999291d46b9cae": {
+                    "name": "fk_Product_Seller1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Seller_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Product_Seller1"
+                    }
+                }
+            }
+        },
+        "ProductDescription": {
+            "tableName": "ProductDescription",
+            "indexes": {
+                "2ac930e4bf8882cc6fec4fe76a87848ce33f3c3e": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Product_id"
+                        },
+                        {
+                            "name": "Product_Seller_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                }
+            }
+        },
+        "ProductImage": {
+            "tableName": "ProductImage",
+            "indexes": {
+                "6014ebccf50c4e7bb647ed70f41c368bb37fb428": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "39897c107087847cc110716626a77d34588bfe01": {
+                    "name": "fk_ProductImage_Product1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_ProductImage_Product1"
+                    }
+                }
+            }
+        },
+        "ProductionAddress": {
+            "tableName": "ProductionAddress",
+            "indexes": {
+                "e0b52d512d6d44a94048e88252e3ec294b4dddb2": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Seller_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "3bf18eae10dcdde34cebc697d833df4cf61fd558": {
+                    "name": "fk_ProductionAddress_Seller1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Seller_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_ProductionAddress_Seller1"
+                    }
+                }
+            }
+        },
+        "Question": {
+            "tableName": "Question",
+            "indexes": {
+                "6014ebccf50c4e7bb647ed70f41c368bb37fb428": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "7becae82e336689bd2cf918778a3485a0b6c7f15": {
+                    "name": "fk_Question_Product1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Question_Product1"
+                    }
+                }
+            }
+        },
+        "RefreshToken": {
+            "tableName": "RefreshToken",
+            "indexes": {
+                "ff6164abc2eb8af536efd23c564da8c4594c6dcb": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "token"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                }
+            }
+        },
+        "Review": {
+            "tableName": "Review",
+            "indexes": {
+                "6014ebccf50c4e7bb647ed70f41c368bb37fb428": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "d910de74c0dc384ac75f2267c1e73100134a5ebd": {
+                    "name": "fk_Review_Product1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Product_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_Review_Product1"
+                    }
+                }
+            }
+        },
+        "ReviewImage": {
+            "tableName": "ReviewImage",
+            "indexes": {
+                "ed724679e7bfe41e04096bcd6cf46495dbd5f3e2": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Review_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "9b2ef9ceca1eab50598c69c323bd943947392ed6": {
+                    "name": "fk_ReviewImage_Review1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Review_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_ReviewImage_Review1"
+                    }
+                }
+            }
+        },
+        "Seller": {
+            "tableName": "Seller",
+            "indexes": {
+                "8761300c82a8ecf330311af649a5271f19cfa295": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                }
+            }
+        },
+        "TotalOrder": {
+            "tableName": "TotalOrder",
+            "indexes": {
+                "c57640aa61d6b7ebc5aec6b102e5f63116283194": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "Customer_id"
+                        },
+                        {
+                            "name": "DeliveryAddress_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "indicesType": "UNIQUE"
+                    }
+                },
+                "26f3619ec48cb8e2b9cbd4b291ffbec2224bec0c": {
+                    "name": "fk_TotalOrder_Customer1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "Customer_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_TotalOrder_Customer1"
+                    }
+                },
+                "99928a5fbd16ba120091a337548d51ffc4ce92c4": {
+                    "name": "fk_TotalOrder_DeliveryAddress1",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "DeliveryAddress_id"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "fk_TotalOrder_DeliveryAddress1"
+                    }
+                }
+            }
+        }
+    },
+    "revision": 1
+}
